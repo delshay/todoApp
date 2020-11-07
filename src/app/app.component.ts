@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'todoApp2';
+  public todos: string[] = [];
+
+  todoForm = new FormGroup({
+    todo: new FormControl('', Validators.required)
+  });
+
+  onSubmit() {
+    if (this.todoForm.value.todo !== '') {
+      this.todos.push(this.todoForm.value.todo);
+      this.todoForm.setValue({
+        todo: ''
+      })
+    }
+  }
 }
